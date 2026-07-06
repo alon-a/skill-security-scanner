@@ -66,15 +66,15 @@ scan_content() {
   fi
 
   # nc with -e or piped to network
-  if echo "$content" | grep -nEq 'nc\s+.*(-e|> )' 2>/dev/null; then
-    echo "$content" | grep -nE 'nc\s+.*(-e|> )' | while read -r match; do
+  if echo "$content" | grep -nEq '\bnc\b\s+.*(-e|> )' 2>/dev/null; then
+    echo "$content" | grep -nE '\bnc\b\s+.*(-e|> )' | while read -r match; do
       flag CRITICAL "$rel" "${match%%:*}" "netcat with execute/redirect"
     done
   fi
 
   # Sensitive files sent externally
-  if echo "$content" | grep -nPq '(curl|wget|nc|scp).*(\$HOME|\.env|\.ssh|/etc/passwd|/etc/shadow|credentials|secrets|tokens)' 2>/dev/null; then
-    echo "$content" | grep -nP '(curl|wget|nc|scp).*(\$HOME|\.env|\.ssh|/etc/passwd|/etc/shadow|credentials|secrets|tokens)' | while read -r match; do
+  if echo "$content" | grep -nPq '(curl|wget|\bnc\b|scp).*(\$HOME|\.env|\.ssh|/etc/passwd|/etc/shadow|credentials|secrets|tokens)' 2>/dev/null; then
+    echo "$content" | grep -nP '(curl|wget|\bnc\b|scp).*(\$HOME|\.env|\.ssh|/etc/passwd|/etc/shadow|credentials|secrets|tokens)' | while read -r match; do
       flag CRITICAL "$rel" "${match%%:*}" "Sensitive data sent externally"
     done
   fi
@@ -172,8 +172,8 @@ scan_content() {
     done
   fi
 
-  if echo "$content" | grep -nEq '(nc\s+-l|python.*http\.server|socat\s+LISTEN)' 2>/dev/null; then
-    echo "$content" | grep -nE '(nc\s+-l|python.*http\.server|socat\s+LISTEN)' | while read -r match; do
+  if echo "$content" | grep -nEq '(\bnc\b\s+-l|python.*http\.server|socat\s+LISTEN)' 2>/dev/null; then
+    echo "$content" | grep -nE '(\bnc\b\s+-l|python.*http\.server|socat\s+LISTEN)' | while read -r match; do
       flag MEDIUM "$rel" "${match%%:*}" "Network listener"
     done
   fi
