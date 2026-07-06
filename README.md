@@ -20,7 +20,10 @@ scanning).
 > verdict — that's expected. `SKILL.md` documents the exact patterns this
 > tool detects (e.g. `curl -d ... /etc/passwd` as a worked example of what
 > exfiltration looks like), so the scanner correctly matches its own
-> documentation. It's not a live payload.
+> documentation. It's not a live payload. For an actual known-bad target
+> to test against, see
+> [known-bad-skill-fixture](https://github.com/alon-a/known-bad-skill-fixture) —
+> a synthetic, fully inert fixture built specifically for this purpose.
 
 ## What it checks
 
@@ -146,14 +149,16 @@ real terminal.
 
 ## Testing
 
-`test-fixtures/known-bad-skill/` (gitignored here, lives in its own repo
-at `known-bad-skill-fixture`) is a synthetic, fully inert fixture that
-trips every severity tier — every dangerous-looking line lives inside a
-bash function that's never called, so it's safe to clone or execute by
-accident. Use it as a regression check after touching `skill-scan-lib.sh`:
+`test-fixtures/known-bad-skill/` (gitignored here, lives in its own public
+repo at [known-bad-skill-fixture](https://github.com/alon-a/known-bad-skill-fixture))
+is a synthetic, fully inert fixture that trips every severity tier — every
+dangerous-looking line lives inside a bash function that's never called,
+so it's safe to clone or execute by accident. Use it as a regression check
+after touching `skill-scan-lib.sh`:
 
 ```bash
-./scan-skill.sh path/to/known-bad-skill/   # expect: DANGEROUS, exit 2
+./scan-skill.sh path/to/known-bad-skill/                                  # SKILL.md + install.sh only: Critical 12 / High 11 / Medium 8 / Low 6, exit 2
+./scan-github-remote.sh https://github.com/alon-a/known-bad-skill-fixture  # whole repo (incl. its README): Critical 12 / High 11 / Medium 8 / Low 8, exit 2
 ```
 
 ## Limitations
