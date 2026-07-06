@@ -8,6 +8,14 @@
 #   - Call scan_content "<label>" "<content>" once per file.
 #   - Call print_verdict at the end; it prints the summary and exits with 0/1/2.
 
+# Force a UTF-8 locale so grep correctly parses multi-byte content (e.g. the
+# Hebrew text in SKILL.md) regardless of the invoking shell's environment.
+# bash.exe launched outside Git Bash's own entry point (e.g. from a plain
+# .bat file) often has LANG/LC_ALL unset entirely; under the resulting
+# fallback "C" locale, grep silently misparses multi-byte sequences instead
+# of erroring — findings go quietly missing instead of failing loudly.
+export LC_ALL=C.UTF-8
+
 RED=$'\033[0;31m'
 YELLOW=$'\033[0;33m'
 GREEN=$'\033[0;32m'
