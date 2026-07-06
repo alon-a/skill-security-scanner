@@ -16,6 +16,12 @@ scanning).
 > prose, a look at who published it, and — for anything you don't fully
 > trust — a first run in a sandbox. See [Limitations](#limitations) below.
 
+> **Curious and scanning this repo on itself?** You'll get a `DANGEROUS`
+> verdict — that's expected. `SKILL.md` documents the exact patterns this
+> tool detects (e.g. `curl -d ... /etc/passwd` as a worked example of what
+> exfiltration looks like), so the scanner correctly matches its own
+> documentation. It's not a live payload.
+
 ## What it checks
 
 | Severity | Examples |
