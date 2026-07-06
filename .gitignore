@@ -1,0 +1,10 @@
+# Local Claude Code settings (personal, not for public repo)
+.claude/settings.local.json
+
+# Regression-test fixture: has its own separate git history/remote
+# (github.com/alon-a/known-bad-skill-fixture) and isn't part of the
+# shipped plugin — kept on disk for local testing only.
+test-fixtures/
+
+# Build output
+dist/

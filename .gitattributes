@@ -1,0 +1,4 @@
+# Force LF line endings for everything, regardless of the cloning machine's
+# git config. Without this, Windows checkouts can convert .sh files to CRLF,
+# which breaks their shebang line on Linux/WSL/strict bash.
+* text=auto eol=lf

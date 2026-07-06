@@ -1,0 +1,17 @@
+{
+  "name": "skill-security-scanner",
+  "description": "Scan a Claude Code skill (SKILL.md + companion scripts) for malicious content before installing it — data exfiltration, destructive commands, prompt injection, obfuscation, and other suspicious patterns. Works on local folders, and on remote GitHub repos either via a temporary clone or with zero disk writes at all.",
+  "version": "1.0.0",
+  "author": {
+    "name": "alon-a",
+    "url": "https://github.com/alon-a"
+  },
+  "homepage": "https://github.com/alon-a/skill-security-scanner",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "supply-chain",
+    "skill-review",
+    "static-analysis"
+  ]
+}

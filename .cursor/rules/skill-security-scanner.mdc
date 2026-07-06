@@ -1,0 +1,28 @@
+---
+description: How to scan a skill/repo for malicious content with skill-security-scanner before installing or trusting it
+alwaysApply: false
+---
+
+This project bundles `skill-security-scanner`: a set of bash scripts under
+`skills/skill-security-scanner/` that check a skill (SKILL.md + companion
+scripts) for data exfiltration, destructive commands, prompt injection,
+obfuscation, and other suspicious patterns before you install or trust it.
+
+When the user asks to scan/review/verify a skill, a downloaded script, or a
+GitHub repo for safety, run the matching tool from a terminal (Git Bash /
+WSL — these are bash scripts, not PowerShell):
+
+- Local file or folder:
+  `bash skills/skill-security-scanner/scan-skill.sh <path>`
+- Remote GitHub repo, via a temporary local clone (auto-deleted after):
+  `bash skills/skill-security-scanner/scan-github-skill.sh <github-url>`
+- Remote GitHub repo, with zero disk writes (fetches file-by-file into
+  memory via the GitHub API instead of cloning):
+  `bash skills/skill-security-scanner/scan-github-remote.sh <github-url>`
+  (needs `curl` + a working `python3`/`python`; set `GITHUB_TOKEN` for
+  private repos or a higher API rate limit)
+
+Read the script's own output for the verdict; exit code 0 = SAFE,
+1 = SUSPICIOUS (manual review needed), 2 = DANGEROUS (do not install).
+See `skills/skill-security-scanner/SKILL.md` for the full detection
+checklist and `README.md` for usage details.

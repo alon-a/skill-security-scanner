@@ -1,0 +1,14 @@
+{
+  "name": "skill-security-scanner-marketplace",
+  "owner": {
+    "name": "alon-a",
+    "url": "https://github.com/alon-a"
+  },
+  "plugins": [
+    {
+      "name": "skill-security-scanner",
+      "source": "./",
+      "description": "Scan a Claude Code skill for malicious content before installing it — local folders or remote GitHub repos, with or without cloning."
+    }
+  ]
+}
